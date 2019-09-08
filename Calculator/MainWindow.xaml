@@ -1,0 +1,29 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator"
+        xmlns:mvvm="clr-namespace:Calculator.Mvvm"
+        mc:Ignorable="d"
+        Title="Expression Calculator" MinWidth="250px" MinHeight="300px" Width="250px" Height="300px">
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <mvvm:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <mvvm:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter_Hidden" HiddenInsteadOfCollapsed="True" />
+    </Window.Resources>
+    <Grid Margin="5 3">
+        <GroupBox Header="Calculator" Padding="3 1" Grid.Row="0">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Expression" Margin="-5 0 0 0" />
+                <TextBox Margin="0 0 0 3" Text="{Binding UserExpression, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" x:Name="expressionField" />
+                <Button Content="Calculate" HorizontalAlignment="Right" Padding="3 5" IsDefault="True" Command="{Binding ExecuteCommand}" />
+                <TextBlock Text="{Binding Error}" Foreground="Red" Visibility="{Binding HasError, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" TextWrapping="Wrap" />
+                <Label Content="Result" Margin="-5 0 0 0" />
+                <TextBlock Text="{Binding ExpressionResult}" FontSize="16px" FontWeight="Bold" Visibility="{Binding ShowResult, Converter={StaticResource BooleanToVisibilityConverter_Hidden}}" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
