@@ -32,6 +32,10 @@ namespace ExpressionLibrary
             {
                 result = new LetExpression();
             }
+            else if(VariableExpression.IsMatch(expression))
+            {
+                result = new VariableExpression();
+            }
 
             return result;
         }

@@ -27,6 +27,8 @@ namespace ExpressionLibrary.Expressions
             int value = Expression.Evaluate(valueExpression);
             resultExpression = Regex.Replace(resultExpression, $"\\b{variableName}\\b", value.ToString());
 
+            VariableExpression.AddVariable(variableName, value);
+
             return Expression.Evaluate(resultExpression);
         }
 
